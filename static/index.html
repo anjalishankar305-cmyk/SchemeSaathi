@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SchemeSaathi - Multilingual Policy, Rights & Scheme Explainer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇮🇳</text></svg>">
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <span class="brand-icon">🇮🇳</span>
+        <div class="brand-text">
+          <h1 id="appTitle">SchemeSaathi</h1>
+          <p id="appTagline">Multilingual Welfare Scheme, Rights & Notice Explainer</p>
+        </div>
+      </div>
+
+      <div class="lang-picker-wrapper">
+        <label for="langSelect" id="langLabel">🌐</label>
+        <select id="langSelect" aria-label="Select Application Language">
+          <option value="en" selected>English</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="kn">ಕನ್ನಡ (Kannada)</option>
+          <option value="ta">தமிழ் (Tamil)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Demo Mode Banner (Shown if GEMINI_API_KEY is missing) -->
+  <div id="demoBanner" class="demo-banner" style="display: none;">
+    <span>⚡</span>
+    <span id="demoBannerText">Demo Mode: Operating on verified government scheme repository. Configure GEMINI_API_KEY in .env for generative LLM synthesis.</span>
+  </div>
+
+  <!-- Main View Area -->
+  <main>
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav" role="tablist">
+      <button id="tabAskBtn" class="tab-btn active" role="tab" aria-selected="true">
+        💬 Ask (Chat)
+      </button>
+      <button id="tabEligibilityBtn" class="tab-btn" role="tab" aria-selected="false">
+        📋 Check Eligibility
+      </button>
+      <button id="tabNoticeBtn" class="tab-btn" role="tab" aria-selected="false">
+        📄 Explain Notice
+      </button>
+    </nav>
+
+    <!-- TAB 1: Chat View -->
+    <section id="tabAskView" class="tab-view active">
+      <div class="chat-container">
+        <!-- Quick Questions Chips -->
+        <div class="quick-questions-panel">
+          <div class="quick-title" id="quickQuestionsTitle">Tap a common question:</div>
+          <div class="chip-grid" id="quickQuestionChips"></div>
+        </div>
+
+        <!-- Chat Conversation Area -->
+        <div class="chat-box" id="chatBox">
+          <div class="message-bubble bot-msg">
+            <div class="msg-header">
+              <span>SchemeSaathi</span>
+            </div>
+            <div class="msg-text">
+              <p><strong>Namaste & Welcome! 🙏</strong></p>
+              <p>I explain government welfare schemes, rights, and circulars in simple language in English, Hindi, Kannada, and Tamil.</p>
+              <p>You can type your question, tap the microphone to speak, or pick any of the common questions above!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Bar -->
+        <div class="chat-input-bar">
+          <input type="text" id="chatInput" placeholder="Ask any question about welfare schemes, benefits, or rights..." autocomplete="off">
+          <button id="micBtn" class="action-btn mic-btn" title="Speak via Microphone">
+            🎤 <span id="micBtnText">Speak</span>
+          </button>
+          <button id="sendBtn" class="action-btn send-btn">
+            <span id="sendBtnText">Ask</span> ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: Check Eligibility View -->
+    <section id="tabEligibilityView" class="tab-view">
+      <div class="eligibility-container">
+        <div class="card">
+          <h2 id="eligibilityTitle" style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">
+            Check Your Eligibility for Welfare Schemes
+          </h2>
+          <p id="eligibilitySubtitle" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Fill in simple details to see which Central and State schemes you qualify for. Your data stays in your browser.
+          </p>
+
+          <form id="eligibilityForm" class="form-grid" onsubmit="event.preventDefault();">
+            <div class="form-group">
+              <label id="lblAge" for="inputAge">Age (Years)</label>
+              <input type="number" id="inputAge" class="form-input" placeholder="e.g. 35" min="0" max="120">
+            </div>
+
+            <div class="form-group">
+              <label id="lblGender" for="inputGender">Gender</label>
+              <select id="inputGender" class="form-select">
+                <option value="" selected>Select Gender...</option>
+                <option value="female" id="optFemale">Female</option>
+                <option value="male" id="optMale">Male</option>
+                <option value="other" id="optOther">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblState" for="inputState">State of Residence</label>
+              <select id="inputState" class="form-select">
+                <option value="Karnataka" selected>Karnataka</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Other">Other State</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblIncome" for="inputIncome">Annual Family Income (₹)</label>
+              <input type="number" id="inputIncome" class="form-input" placeholder="e.g. 150000" min="0">
+            </div>
+
+            <div class="form-group">
+              <label id="lblOccupation" for="inputOccupation">Primary Occupation</label>
+              <select id="inputOccupation" class="form-select">
+                <option value="" selected>Select Occupation...</option>
+                <option value="farmer" id="optFarmer">Farmer / Agriculture</option>
+                <option value="student" id="optStudent">Student</option>
+                <option value="self_employed" id="optSelfEmployed">Self-Employed / Small Business / Vendor</option>
+                <option value="salaried" id="optSalaried">Salaried Employee</option>
+                <option value="homemaker" id="optHomemaker">Homemaker</option>
+                <option value="retired" id="optRetired">Retired / Senior</option>
+                <option value="unemployed" id="optUnemployed">Unemployed</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblCategory" for="inputCategory">Social Category</label>
+              <select id="inputCategory" class="form-select">
+                <option value="General" id="optGen" selected>General</option>
+                <option value="OBC" id="optOBC">OBC</option>
+                <option value="SC" id="optSC">Scheduled Caste (SC)</option>
+                <option value="ST" id="optST">Scheduled Tribe (ST)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblOwnsLand" for="inputOwnsLand">Does family own cultivable land?</label>
+              <select id="inputOwnsLand" class="form-select">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblRationCard" for="inputRationCard">Ration Card Type</label>
+              <select id="inputRationCard" class="form-select">
+                <option value="BPL" id="optBPL" selected>BPL (Below Poverty Line) / Priority</option>
+                <option value="AAY" id="optAAY">Antyodaya (AAY)</option>
+                <option value="APL" id="optAPL">APL (Above Poverty Line)</option>
+                <option value="none" id="optNone">No Ration Card</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblTaxPayer" for="inputTaxPayer">Do you or your spouse pay Income Tax?</label>
+              <select id="inputTaxPayer" class="form-select">
+                <option value="no" selected>No (Non-Taxpayer)</option>
+                <option value="yes">Yes (Income Tax Payer)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblPuccaHouse" for="inputPuccaHouse">Does family own a permanent Pucca house?</label>
+              <select id="inputPuccaHouse" class="form-select">
+                <option value="no" selected>No (Kutcha / Rented / Houseless)</option>
+                <option value="yes">Yes (Pucca house)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label id="lblLPG" for="inputLPG">Does household already have an LPG gas connection?</label>
+              <select id="inputLPG" class="form-select">
+                <option value="no" selected>No</option>
+                <option value="yes">Yes</option>
+              </select>
+            </div>
+          </form>
+
+          <div class="form-actions">
+            <button id="btnCheckAll" class="action-btn btn-primary">
+              🔍 Check All Schemes For Me
+            </button>
+            <button id="btnReset" class="action-btn btn-secondary">
+              🔄 Reset Profile
+            </button>
+          </div>
+        </div>
+
+        <!-- Rendered Results Container -->
+        <div id="eligibilityResults" class="results-grid"></div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Notice Explainer View -->
+    <section id="tabNoticeView" class="tab-view">
+      <div class="notice-container">
+        <div class="card">
+          <h2 id="noticeTitle" style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">
+            Explain a Government Notice or Circular
+          </h2>
+          <p id="noticeSubtitle" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Upload a photo or PDF of a government order or welfare circular to understand what it means in simple language.
+          </p>
+
+          <div id="dropzone" class="dropzone" style="margin-top: 1rem;">
+            <div class="dropzone-icon">📑</div>
+            <p id="dragDropText">Drag & drop an image or PDF here, or tap to choose a file</p>
+            <div class="file-controls">
+              <button type="button" id="btnUpload" class="action-btn btn-primary">Choose File</button>
+              <button type="button" id="btnCamera" class="action-btn btn-secondary">📷 Take a Photo</button>
+            </div>
+            <input type="file" id="noticeFileInput" accept="image/*,application/pdf" style="display: none;">
+            <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
+          </div>
+
+          <div id="filePreview" class="file-preview" style="display: none;">
+            <span id="fileNameDisplay"></span>
+            <button id="btnExplain" class="action-btn btn-primary" style="min-height: 38px; padding: 0.4rem 0.9rem;">
+              Explain This Document
+            </button>
+          </div>
+
+          <div id="noticeOutput" class="notice-output" style="display: none;"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Persistent Footer & Privacy -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <span class="privacy-pill" id="privacyBanner">
+          🔒 Privacy Protected: We do NOT collect or store Aadhaar numbers or personal information. Your profile exists only in this browser session.
+        </span>
+      </div>
+      <p id="disclaimer">
+        Disclaimer: Welfare scheme rules and benefits are subject to periodic government updates. Always confirm details on the official portal.
+      </p>
+    </div>
+  </footer>
+
+  <script src="locales.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+[
+  {
+    "id": "pm_kisan",
+    "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "category": "Agriculture",
+    "level": "Central",
+    "dept": "Ministry of Agriculture & Farmers Welfare",
+    "benefits": "Rs 6,000 per year per eligible farmer family, paid in 3 instalments of Rs 2,000 every 4 months by Direct Benefit Transfer (DBT).",
+    "eligibility": "Landholding farmer families (husband, wife and minor children) with cultivable land in their name as per land records.",
+    "exclusions": "Institutional landholders; present/former holders of constitutional posts, ministers, MPs, MLAs; serving or retired officers (except MTS/Class IV/Group D); pensioners with Rs 10,000+ per month; income tax payers in the last assessment year; registered professionals (doctors, engineers, lawyers, CAs, architects).",
+    "documents": "Aadhaar, land ownership records, bank account (Aadhaar-seeded), mobile number, eKYC.",
+    "apply": "Self-register at pmkisan.gov.in (Farmers Corner) or through a Common Service Centre (CSC) or state nodal officer. Complete eKYC.",
+    "link": "https://pmkisan.gov.in",
+    "rules": {
+      "requires_land": true,
+      "occupations": [
+        "farmer"
+      ],
+      "disallow_tax_payer": true,
+      "disallow_institutional_landholder": true,
+      "disallow_govt_pensioner_10k": true,
+      "summary": "Cultivable land in family name, must be a farmer, and not an income tax payer or constitutional post holder."
+    }
+  },
+  {
+    "id": "ab_pmjay",
+    "name": "Ayushman Bharat PM-JAY",
+    "category": "Health",
+    "level": "Central",
+    "dept": "National Health Authority",
+    "benefits": "Health cover up to Rs 5 lakh per family per year for cashless secondary and tertiary hospital care at empanelled hospitals.",
+    "eligibility": "Families identified through SECC 2011 deprivation/occupation criteria (rural and urban categories) and added state lists. Senior citizens aged 70+ are also covered under the Vay Vandana extension regardless of income (verify current rules).",
+    "exclusions": "Families not in the eligibility database (except 70+ extension). Check 'Am I Eligible' on the portal.",
+    "documents": "Aadhaar, ration card or other ID, mobile number; family details for e-KYC.",
+    "apply": "Check eligibility at pmjay.gov.in or call 14555. Get the Ayushman card made at an empanelled hospital, CSC or Ayushman Mitra.",
+    "link": "https://pmjay.gov.in",
+    "rules": {
+      "senior_universal_age": 70,
+      "ration_card_types": [
+        "BPL",
+        "AAY",
+        "PHH"
+      ],
+      "max_annual_income": 250000,
+      "summary": "Families in SECC/BPL/priority ration card lists OR any senior citizen aged 70+ under Vay Vandana."
+    }
+  },
+  {
+    "id": "nsp_post_matric_sc",
+    "name": "Post Matric Scholarship for SC Students (via National Scholarship Portal)",
+    "category": "Education",
+    "level": "Central",
+    "dept": "Ministry of Social Justice & Empowerment",
+    "benefits": "Maintenance allowance and reimbursement of compulsory fees for SC students studying after Class 10 (amounts depend on course group).",
+    "eligibility": "Scheduled Caste students pursuing post-matric/post-secondary courses; family income up to Rs 2.5 lakh per annum (verify current ceiling).",
+    "exclusions": "Students above the income limit; students not enrolled in recognised institutions. Other NSP scholarships (minority, OBC, ST) have different income limits and marks criteria.",
+    "documents": "Aadhaar, caste certificate, income certificate, previous marksheet, admission/fee receipt, bank account passbook.",
+    "apply": "Register and apply online at scholarships.gov.in during the open window; institute and state verification follows.",
+    "link": "https://scholarships.gov.in",
+    "rules": {
+      "categories": [
+        "SC"
+      ],
+      "is_student": true,
+      "max_annual_income": 250000,
+      "summary": "SC student studying in post-matric/post-secondary courses with family income <= Rs 2.5 Lakh."
+    }
+  },
+  {
+    "id": "pmuy",
+    "name": "PM Ujjwala Yojana (PMUY)",
+    "category": "Women & Energy",
+    "level": "Central",
+    "dept": "Ministry of Petroleum & Natural Gas",
+    "benefits": "Free LPG connection (deposit-free) for eligible women; targeted subsidy on refills (amount revised periodically, e.g. Rs 300 per 14.2 kg cylinder in recent years - verify).",
+    "eligibility": "Adult woman from a poor/BPL household (SECC or listed categories such as SC/ST, PMAY-G, AAY, tea garden workers) with no existing LPG connection in the household.",
+    "exclusions": "Households that already have an LPG connection.",
+    "documents": "KYC (Aadhaar), ration card / BPL proof, bank account details, passport-size photo, address proof.",
+    "apply": "Submit the KYC form at a nearby LPG distributor or apply on the pmuy.gov.in portal.",
+    "link": "https://www.pmuy.gov.in",
+    "rules": {
+      "gender": [
+        "female"
+      ],
+      "min_age": 18,
+      "disallow_lpg_connection": true,
+      "ration_card_types": [
+        "BPL",
+        "AAY",
+        "PHH"
+      ],
+      "max_annual_income": 200000,
+      "summary": "Adult woman from poor/BPL household with no existing LPG cylinder connection."
+    }
+  },
+  {
+    "id": "pmay_g",
+    "name": "PM Awaas Yojana - Gramin (PMAY-G)",
+    "category": "Housing",
+    "level": "Central",
+    "dept": "Ministry of Rural Development",
+    "benefits": "Financial assistance for a pucca house with basic amenities: Rs 1.20 lakh in plain areas and Rs 1.30 lakh in hilly/difficult areas, plus convergence benefits (toilet, MGNREGA wages, etc.).",
+    "eligibility": "Rural households that are houseless or live in kutcha/dilapidated houses, identified from SECC data and Awaas+ survey.",
+    "exclusions": "Households owning a pucca house, motorised vehicle, or meeting other prescribed exclusion criteria.",
+    "documents": "Aadhaar, job card (if any), bank account details, SBM toilet details, beneficiary list verification.",
+    "apply": "Beneficiaries are selected from the Gram Sabha-verified list; contact Gram Panchayat / Block office. Check at pmayg.nic.in.",
+    "link": "https://pmayg.nic.in",
+    "rules": {
+      "is_rural": true,
+      "disallow_pucca_house": true,
+      "disallow_motorized_vehicle": true,
+      "summary": "Rural houseless or living in kutcha/dilapidated house; no pucca house or motorized vehicle."
+    }
+  },
+  {
+    "id": "apy",
+    "name": "Atal Pension Yojana (APY)",
+    "category": "Pension",
+    "level": "Central",
+    "dept": "PFRDA / Ministry of Finance",
+    "benefits": "Guaranteed monthly pension of Rs 1,000 to Rs 5,000 after age 60, depending on the contribution and joining age.",
+    "eligibility": "Indian citizens aged 18 to 40 with a savings bank account and mobile number.",
+    "exclusions": "Income tax payers are not eligible to join (rule in force since October 2022).",
+    "documents": "Aadhaar (or other ID), savings bank account, mobile number, nominee details.",
+    "apply": "Open through your bank branch or net banking; auto-debit of contribution from the bank account.",
+    "link": "https://www.jansuraksha.gov.in",
+    "rules": {
+      "min_age": 18,
+      "max_age": 40,
+      "disallow_tax_payer": true,
+      "requires_bank_account": true,
+      "summary": "Indian citizen aged 18-40 with savings bank account, not paying income tax."
+    }
+  },
+  {
+    "id": "ssy",
+    "name": "Sukanya Samriddhi Yojana (SSY)",
+    "category": "Women & Child",
+    "level": "Central",
+    "dept": "Ministry of Finance (Post Office / banks)",
+    "benefits": "Small-savings account for a girl child: minimum Rs 250 and maximum Rs 1.5 lakh deposit per year; interest rate set by the government each quarter; tax benefit under Section 80C (old regime); matures after 21 years.",
+    "eligibility": "Girl child below 10 years of age; account opened by parent/legal guardian; one account per girl child (limit of two girls per family, with exceptions for twins/triplets).",
+    "exclusions": "Girls aged 10 or above at the time of opening; more than one account per girl.",
+    "documents": "Girl's birth certificate, parent/guardian ID and address proof, initial deposit.",
+    "apply": "Open at any post office or authorised bank branch.",
+    "link": "https://www.indiapost.gov.in",
+    "rules": {
+      "gender": [
+        "female"
+      ],
+      "max_age": 10,
+      "summary": "Girl child below 10 years of age, opened by parent or legal guardian."
+    }
+  },
+  {
+    "id": "pm_mudra",
+    "name": "PM Mudra Yojana (PMMY)",
+    "category": "Business & Livelihood",
+    "level": "Central",
+    "dept": "Ministry of Finance (MUDRA)",
+    "benefits": "Collateral-free business loans: Shishu up to Rs 50,000; Kishor Rs 50,001 to 5 lakh; Tarun Rs 5 lakh to 10 lakh (Tarun Plus limit raised to Rs 20 lakh for eligible past borrowers per Budget 2024 - verify).",
+    "eligibility": "Indian citizens with a business plan for a non-farm income-generating activity (manufacturing, trading, services) of micro/small scale.",
+    "exclusions": "Agricultural activities (crop farming) are generally outside the scope.",
+    "documents": "ID and address proof, business plan/proof of business, bank statements, photographs, caste certificate if applicable.",
+    "apply": "Apply at banks, NBFC-MFIs, or via the Udyami Mitra portal.",
+    "link": "https://www.mudra.org.in",
+    "rules": {
+      "min_age": 18,
+      "is_non_farm_business": true,
+      "summary": "Indian citizen aged 18+ with a micro/small non-farm enterprise or business plan."
+    }
+  },
+  {
+    "id": "gruha_lakshmi",
+    "name": "Gruha Lakshmi (Karnataka)",
+    "category": "Women & Welfare",
+    "level": "Karnataka",
+    "dept": "Dept of Women & Child Development, Govt of Karnataka",
+    "benefits": "Rs 2,000 per month paid to the woman head of the family by DBT.",
+    "eligibility": "Woman head of the family holding a BPL, APL or Antyodaya ration card in Karnataka.",
+    "exclusions": "Families where the head of the family (or spouse) is an income tax or GST payer.",
+    "documents": "Ration card, Aadhaar, bank account (Aadhaar-seeded), mobile number.",
+    "apply": "Apply on the Seva Sindhu portal or at Grama One / Bangalore One / Karnataka One centres.",
+    "link": "https://sevasindhu.karnataka.gov.in",
+    "rules": {
+      "state": "Karnataka",
+      "gender": [
+        "female"
+      ],
+      "requires_ration_card": true,
+      "ration_card_types": [
+        "BPL",
+        "AAY",
+        "APL"
+      ],
+      "disallow_tax_payer": true,
+      "summary": "Woman head of family in Karnataka with BPL/APL/AAY ration card, non-taxpayer."
+    }
+  },
+  {
+    "id": "anna_bhagya",
+    "name": "Anna Bhagya (Karnataka)",
+    "category": "Food Security",
+    "level": "Karnataka",
+    "dept": "Dept of Food, Civil Supplies & Consumer Affairs, Govt of Karnataka",
+    "benefits": "Food grains for BPL/Antyodaya ration card holders under NFSA (5 kg per member) plus additional support in lieu of extra grain (mode and rate has changed over time - verify current).",
+    "eligibility": "Families holding a BPL (priority household) or Antyodaya (AAY) ration card in Karnataka.",
+    "exclusions": "APL card holders (not covered by this benefit).",
+    "documents": "BPL/AAY ration card, Aadhaar, bank account (for DBT).",
+    "apply": "Benefit is through the ration card; apply for or correct a ration card on the Ahara / Seva Sindhu portals.",
+    "link": "https://ahara.kar.nic.in",
+    "rules": {
+      "state": "Karnataka",
+      "requires_ration_card": true,
+      "ration_card_types": [
+        "BPL",
+        "AAY"
+      ],
+      "summary": "Resident of Karnataka with BPL or Antyodaya (AAY) ration card."
+    }
+  },
+  {
+    "id": "gruha_jyothi",
+    "name": "Gruha Jyothi (Karnataka)",
+    "category": "Energy",
+    "level": "Karnataka",
+    "dept": "Energy Dept, Govt of Karnataka",
+    "benefits": "Up to 200 units of free electricity per month for domestic consumers (based on the 12-month average consumption plus 10 percent, capped at 200 units).",
+    "eligibility": "Domestic electricity consumers in Karnataka (owners and tenants) with a registered ESCOM account.",
+    "exclusions": "Commercial connections.",
+    "documents": "Electricity account ID, Aadhaar, tenancy agreement (if tenant).",
+    "apply": "Register on Seva Sindhu with your electricity account ID.",
+    "link": "https://sevasindhu.karnataka.gov.in",
+    "rules": {
+      "state": "Karnataka",
+      "is_domestic_electricity_consumer": true,
+      "summary": "Domestic electricity consumer in Karnataka with registered ESCOM account meter."
+    }
+  },
+  {
+    "id": "shakti",
+    "name": "Shakti - Free Bus Travel for Women (Karnataka)",
+    "category": "Women & Transport",
+    "level": "Karnataka",
+    "dept": "Transport Dept, Govt of Karnataka",
+    "benefits": "Free travel for women in ordinary state-run (KSRTC/BMTC/NWKRTC/KKRTC) non-luxury buses within Karnataka.",
+    "eligibility": "Women who are residents of Karnataka; carry a valid Karnataka address ID (Shakti smart card or ID as notified).",
+    "exclusions": "Luxury/AC and inter-state services.",
+    "documents": "Valid government ID with Karnataka address.",
+    "apply": "Obtain the Shakti smart card from Seva Sindhu / bus-transport offices, or show a valid ID as per current rules.",
+    "link": "https://sevasindhu.karnataka.gov.in",
+    "rules": {
+      "state": "Karnataka",
+      "gender": [
+        "female"
+      ],
+      "summary": "Women residents of Karnataka for travel in non-luxury state buses."
+    }
+  },
+  {
+    "id": "rti",
+    "name": "Right to Information Act, 2005 (RTI) - your right",
+    "category": "Rights & Law",
+    "level": "Central",
+    "dept": "Dept of Personnel & Training / Central Information Commission",
+    "benefits": "Any citizen can ask a public authority for information; reply due within 30 days (48 hours for life/liberty matters); application fee Rs 10 for central bodies (state fees vary); BPL applicants are exempt from the fee.",
+    "eligibility": "Any Indian citizen.",
+    "exclusions": "Information exempt under Section 8 (e.g. national security, personal info with no public interest).",
+    "documents": "Written/online application; BPL certificate if claiming fee exemption.",
+    "apply": "File online at rtionline.gov.in (central) or the state RTI portal; first appeal to the First Appellate Authority, then the Information Commission.",
+    "link": "https://rti.gov.in",
+    "rules": {
+      "is_indian_citizen": true,
+      "summary": "Any Indian citizen requesting information from a public authority."
+    }
+  }
+]
