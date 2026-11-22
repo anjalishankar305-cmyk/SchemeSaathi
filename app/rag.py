@@ -62,6 +62,31 @@ class RAGEngine:
             return self.chunks[:top_k]
 
         scores = self.bm25.get_scores(tokens)
+        
+        # Dense vector hybrid scoring if embeddings available
+        api_key = GEMINI_API_KEY or os.getenv("GEMINI_API_KEY", "").strip()
+        if self.embeddings is not None and api_key:
+            try:
+                import numpy as np
+                from google import genai
+                client = genai.Client(api_key=api_key)
+                q_emb = client.models.embed_content(
+                    model="gemini-embedding-001",
+                    contents=[query]
+                ).embeddings[0].values
+                q_vec = np.array(q_emb, dtype=np.float32)
+                # Cosine similarities
+                norm_doc = np.linalg.norm(self.embeddings, axis=1, keepdims=True) + 1e-9
+                norm_q = np.linalg.norm(q_vec) + 1e-9
+                cos_sims = (np.dot(self.embeddings, q_vec) / (norm_doc.squeeze() * norm_q))
+                # Normalize BM25 and combine
+                max_bm25 = max(scores) if max(scores) > 0 else 1.0
+                norm_bm25 = [s / max_bm25 for s in scores]
+                hybrid_scores = [0.5 * norm_bm25[i] + 0.5 * float(cos_sims[i]) for i in range(len(scores))]
+                scores = hybrid_scores
+            except Exception as e:
+                pass  # Graceful fallback to pure BM25
+
         ranked_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
         
         top_chunks = []
@@ -166,17 +191,31 @@ class RAGEngine:
                     f"Respond concisely in simple language (Grade-6 reading level) in {LANGUAGES[language]} strictly using the context above."
                 )
 
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=user_content,
-                    config=types.GenerateContentConfig(
-                        system_instruction=sys_prompt,
-                        temperature=0.2,
-                        max_output_tokens=700
+                # Primary model: gemini-3.8-flash with fallback
+                model_name = "gemini-3.8-flash"
+                try:
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=user_content,
+                        config=types.GenerateContentConfig(
+                            system_instruction=sys_prompt,
+                            temperature=0.2,
+                            max_output_tokens=700
+                        )
                     )
-                )
+                except Exception:
+                    model_name = "gemini-2.5-flash"
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=user_content,
+                        config=types.GenerateContentConfig(
+                            system_instruction=sys_prompt,
+                            temperature=0.2,
+                            max_output_tokens=700
+                        )
+                    )
                 answer_text = response.text.strip()
-                model_used = "Gemini 2.5 Flash"
+                model_used = f"Gemini ({model_name})"
             except Exception as e:
                 # Try fallback model gemini-1.5-flash or google.generativeai
                 try:

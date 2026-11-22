@@ -102,7 +102,7 @@ def try_build_gemini_embeddings(chunks: List[Dict[str, Any]], out_dir: str):
             batch = chunks[i:i+batch_size]
             texts = [c["text"] for c in batch]
             res = client.models.embed_content(
-                model="text-embedding-004",
+                model="gemini-embedding-001",
                 contents=texts
             )
             for emb in res.embeddings:

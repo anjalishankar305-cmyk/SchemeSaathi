@@ -69,21 +69,37 @@ def explain_notice(file_bytes: bytes, filename: str, content_type: str, language
                 f"Ensure the language is empathetic and plain {lang_name}."
             )
 
-            if is_pdf:
-                extracted_text = extract_text_from_pdf_bytes(file_bytes)
-                if not extracted_text or len(extracted_text) < 20:
-                    extracted_text = f"Notice filename: {filename}. (PDF scanned / non-selectable text)."
-                contents = f"{prompt}\n\nNOTICE CONTENT:\n{extracted_text[:6000]}"
-                res = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=contents
-                )
-            else:
-                image = Image.open(io.BytesIO(file_bytes))
-                res = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=[image, prompt]
-                )
+            target_model = "gemini-3.8-flash"
+            try:
+                if is_pdf:
+                    extracted_text = extract_text_from_pdf_bytes(file_bytes)
+                    if not extracted_text or len(extracted_text) < 20:
+                        extracted_text = f"Notice filename: {filename}. (PDF scanned / non-selectable text)."
+                    contents = f"{prompt}\n\nNOTICE CONTENT:\n{extracted_text[:6000]}"
+                    res = client.models.generate_content(
+                        model=target_model,
+                        contents=contents
+                    )
+                else:
+                    image = Image.open(io.BytesIO(file_bytes))
+                    res = client.models.generate_content(
+                        model=target_model,
+                        contents=[image, prompt]
+                    )
+            except Exception:
+                target_model = "gemini-2.5-flash"
+                if is_pdf:
+                    contents = f"{prompt}\n\nNOTICE CONTENT:\n{extracted_text[:6000]}"
+                    res = client.models.generate_content(
+                        model=target_model,
+                        contents=contents
+                    )
+                else:
+                    image = Image.open(io.BytesIO(file_bytes))
+                    res = client.models.generate_content(
+                        model=target_model,
+                        contents=[image, prompt]
+                    )
 
             return {
                 "success": True,
@@ -91,7 +107,7 @@ def explain_notice(file_bytes: bytes, filename: str, content_type: str, language
                 "explanation": res.text.strip(),
                 "language": language,
                 "warning": warning_text,
-                "model_used": "Gemini 2.5 Flash Vision/Text"
+                "model_used": f"Gemini ({target_model}) Vision/Text"
             }
         except Exception as e:
             print(f"[Notice] Gemini multimodal error: {e}")
