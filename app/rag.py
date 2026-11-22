@@ -12,6 +12,18 @@ from typing import List, Dict, Any, Tuple
 from .config import CHUNKS_FILE, BM25_FILE, EMBEDDINGS_FILE, GEMINI_API_KEY
 from .i18n import get_system_prompt, get_disclaimer, LANGUAGES
 
+import socket
+
+def is_network_available(timeout=0.8) -> bool:
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(timeout)
+        s.connect(("8.8.8.8", 53))
+        s.close()
+        return True
+    except Exception:
+        return False
+
 def tokenize(text: str) -> List[str]:
     return re.findall(r'\w+', text.lower())
 
@@ -63,9 +75,9 @@ class RAGEngine:
 
         scores = self.bm25.get_scores(tokens)
         
-        # Dense vector hybrid scoring if embeddings available
+        # Dense vector hybrid scoring if embeddings and network are available
         api_key = GEMINI_API_KEY or os.getenv("GEMINI_API_KEY", "").strip()
-        if self.embeddings is not None and api_key:
+        if self.embeddings is not None and api_key and is_network_available():
             try:
                 import numpy as np
                 from google import genai
@@ -175,7 +187,7 @@ class RAGEngine:
         context_text = "\n\n---\n\n".join([c["text"] for c in chunks])
         api_key = GEMINI_API_KEY or os.getenv("GEMINI_API_KEY", "").strip()
 
-        if api_key:
+        if api_key and is_network_available():
             try:
                 # Try google-genai
                 from google import genai
