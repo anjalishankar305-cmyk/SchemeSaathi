@@ -174,17 +174,6 @@ View the generated evaluation report:
 
 ---
 
-## Step-by-Step Deployment Guide (Render)
-
-Deploying a live public MVP that opens cleanly in any incognito browser window:
-
-### Step 1: Push to GitHub
-Ensure all code, including the pre-built `data/processed/schemes.jsonl` and `data/index/` directory, is committed and pushed to your GitHub repository:
-```bash
-git add .
-git commit -m "SchemeSaathi MVP ready for hackathon deployment"
-git push origin main
-```
 
 ### Step 2: Create Web Service on Render
 1. Visit [dashboard.render.com](https://dashboard.render.com/) and sign in with GitHub.
